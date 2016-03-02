@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="js.js"></script>
+    </head>
+    <body>
+        <div id="container" style="position:absolute; width:100%;">
+            <canvas id="canvas" width="600" height="600" style="border:1px solid #000000; margin:auto;">
+            </canvas>
+            <script type="text/javascript">
+                var canvas = document.getElementById("canvas");
+                canvas.addEventListener('click', function(event) {
+                    changeRotCenter(event);
+                });
+            </script>
+            <div id="controls">
+                <select id="select" onchange="generateDots()">
+                    <option value="random">Random</option>
+                    <option value="gaussian">Gaussian</option>
+                    <option value="regular">Regular</option>
+                </select>
+                <select id="shape" onchange="drawDots()">
+                    <option value="dots">Dots</option>
+                    <option value="triangles">Triangles</option>
+                </select>
+                Number of dots: <input type="number" id="numofdots" value="500" onchange="generateDots()">
+                Size: <input type="number" id="size" value="2" onchange="drawDots()" style="width:30px;"><br>
+                Rotational angle: <input type="range" id="angle" value="0" onchange="rotate()">
+                Rotation center:<input type="text" id="rotcx" style="width:30px;">,<input type="text" id="rotcy" style="width:30px;"><br>
+                Shrinking: <input type="range" id="shrink" value="100" onchange="shrink()">
+                Clear before redraw: <input type="checkbox" id="clear" checked>
+                <button onclick="clear()">Clear</button><br>
+            </div>
+
+        </div>
+        <script type="text/javascript">init();</script>
+    </body>
+</html>
