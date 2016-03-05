@@ -10,7 +10,7 @@
             <script type="text/javascript">
                 var canvas = document.getElementById("canvas");
                 canvas.addEventListener('click', function(event) {
-                    changeRotCenter(event);
+                    changeCenter(event);
                 });
             </script>
             <div id="controls">
@@ -26,10 +26,13 @@
                 Number of dots: <input type="number" id="numofdots" value="500" onchange="generateDots()">
                 Size: <input type="number" id="size" value="2" onchange="drawDots()" style="width:30px;"><br>
                 Rotational angle: <input type="range" id="angle" value="0" onchange="rotate()">
-                Rotation center:<input type="text" id="rotcx" style="width:30px;">,<input type="text" id="rotcy" style="width:30px;"><br>
-                Shrinking: <input type="range" id="shrink" value="100" onchange="shrink()">
+                Rotation center:<input type="text" id="rotcx" style="width:30px;">,<input type="text" id="rotcy" style="width:30px;"><input type="checkbox" id="editrotc" checked><br>
+                Shrinking: <input type="range" id="shrink" value="50" onchange="shrink()">
+                Shrinking center: <input type="text" id="shrinkcx" style="width:30px;"><input type="text" id="shrinkcy" style="width:30px;"><input type="checkbox" id="editshrinkc" checked><br>
+
                 Clear before redraw: <input type="checkbox" id="clear" checked>
-                <button onclick="clear()">Clear</button><br>
+                <button onclick="clearAll()">Clear</button>
+                <button onclick="generateDots()">Redraw</button><br>
             </div>
 
         </div>

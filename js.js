@@ -1,23 +1,33 @@
 var dots = [];
 var transdots = [];
-var rotcenter = []
+var rotcenter = [];
+var shrinkc = [];
 var dotsize;
 var shape = "dots";
 var canvas;
 var rotcx;
 var rotcy;
+var shrinkcx;
+var shrinkcy;
 var clear;
 
 function init() {
     canvas = document.getElementById("canvas");
    
     rotcenter = [Math.floor(canvas.width/2), Math.floor(canvas.height/2)];
+    shrinkc[0] = rotcenter[0];
+    shrinkc[1] = rotcenter[1];
     dotsize = 2;
     
     rotcx = document.getElementById("rotcx");
     rotcy = document.getElementById("rotcy");
     rotcx.value = rotcenter[0];
     rotcy.value = rotcenter[1];
+
+    shrinkcx = document.getElementById("shrinkcx");
+    shrinkcy = document.getElementById("shrinkcy");
+    shrinkcx.value = rotcenter[0];
+    shrinkcy.value = rotcenter[1];
 
     generateDots();
 }
@@ -90,6 +100,11 @@ function clear() {
     }
 }
 
+function clearAll() {
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+
 function rotate() {
     var ctx = canvas.getContext("2d");
     clear();
@@ -114,23 +129,30 @@ function shrink() {
     clear();
     draw(dots);
     
-    var shrinkfactor = document.getElementById("shrink").value/100;
+    var shrinkfactor = document.getElementById("shrink").value/100 + 0.5;
     for(i=0; i<transdots.length; i++) {
-        var x = transdots[i][0] - rotcenter[0];
-        var y = transdots[i][1] - rotcenter[1];
-        x = x*shrinkfactor + rotcenter[0];
-        y = y*shrinkfactor + rotcenter[1];
+        var x = transdots[i][0] - shrinkc[0];
+        var y = transdots[i][1] - shrinkc[1];
+        x = x*shrinkfactor + shrinkc[0];
+        y = y*shrinkfactor + shrinkc[1];
         transdots[i] = [x,y];     
     }
     draw(transdots);
 }
 
-function changeRotCenter(event) {
+function changeCenter(event) {
     var x = event.pageX - canvas.offsetLeft;
     var y = event.pageY - canvas.offsetTop;
-    rotcx.value = x;
-    rotcy.value = y;
-    rotcenter = [x,y];
+    if(document.getElementById("editrotc").checked) {
+        rotcx.value = x;
+        rotcy.value = y;
+        rotcenter = [x,y];
+    }
+    if(document.getElementById("editshrinkc").checked) {
+        shrinkcx.value = x;
+        shrinkcy.value = y;
+        shrinkc = [x,y];
+    }
     rotate();
 }
 
